@@ -27,9 +27,9 @@ Referensi :
 
 ## Data Understanding
 Dataset yang digunakan berasal dari Kaggle - MovieLens(https://www.kaggle.com/datasets/grouplens/movielens-20m-dataset) yang terdiri dari beberapa file utama:
-- movie.csv: Metadata film (movieId, title, genres)
-- genome_tags.csv: Kumpulan tag yang digunakan
-- genome_scores.csv: Skor relevansi (0–1) antara film dan tag
+- movie.csv: Metadata film (movieId, title, genres), Jumlah baris dan kolom: 9742 baris × 3 kolom, Kolom: `movieId`, `title`, `genres`, dan Missing value: Tidak ditemukan missing value (berdasarkan `genome_tags.isnull().sum()`) di notebook
+- genome_tags.csv: Kumpulan tag yang digunakan, Jumlah baris dan kolom: 1127 baris × 2 kolom, Kolom: `tagId`, `tag`, Missing value: Tidak ditemukan missing value (berdasarkan `genome_tags.isnull().sum()`)
+- genome_scores.csv: Skor relevansi (0–1) antara film dan tag, Jumlah baris dan kolom: 11709767 baris × 3 kolom, Kolom: `movieId`, `tagId`, `relevance`, Missing value: Tidak ditemukan missing value (berdasarkan `genome_scores.isnull().sum()`)
 
 Variabel penting:
 - movieId: ID unik untuk setiap film
@@ -56,6 +56,10 @@ Contoh fungsi rekomendasi:
 Output:
 - Sistem akan mengembalikan 5 film dengan konten paling mirip berdasarkan tag.
 
+### Cosine Similarity
+Cosine Similarity adalah metode yang digunakan untuk mengukur kemiripan antara dua vektor dalam ruang berdimensi tinggi, berdasarkan sudut di antara mereka.
+Dalam konteks sistem rekomendasi berbasis konten (Content-Based Filtering), cosine similarity digunakan untuk menghitung seberapa mirip suatu film dengan film lainnya berdasarkan fitur yang sudah diekstrak (misalnya: genre atau tag relevance). Semakin besar nilai cosine similarity (mendekati 1), semakin mirip dua item tersebut.
+
 
 ## Evaluation
 Evaluasi sistem rekomendasi dilakukan untuk mengukur seberapa relevan rekomendasi yang dihasilkan berdasarkan kesamaan genre antara film input dan film yang direkomendasikan. Mengingat pendekatan yang digunakan adalah Content-Based Filtering, maka evaluasi dilakukan dengan mengukur genre overlap antar film.
@@ -72,7 +76,7 @@ Metode yang digunakan adalah Precision@K, yaitu proporsi film yang direkomendasi
 
 ### Hasil Evaluasi
 Hasil evaluasi dengan 100 sampel film acak dan top-5 rekomendasi menghasilkan nilai:
-  - Average Precision@5 (berdasarkan kemiripan genre): 0.8528
+  - Average Precision@5 (berdasarkan kemiripan genre): 0.8520
     
 ![image](https://github.com/user-attachments/assets/7d807aa7-a3ed-4da9-adb5-d8a4c47cd825)
 
