@@ -54,7 +54,8 @@ Model rekomendasi dibuat berdasarkan cosine similarity antar film berdasarkan re
 
 Contoh fungsi rekomendasi:
 
-![image](https://github.com/user-attachments/assets/dd71ecc9-fd14-4a15-be25-11681a08bce9)
+![image](https://github.com/user-attachments/assets/ea77349c-f29a-4119-b9d0-9da225634f27)
+
 
 Output:
 - Sistem akan mengembalikan 5 film dengan konten paling mirip berdasarkan tag.
