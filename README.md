@@ -27,15 +27,17 @@ Referensi :
 
 ## Data Understanding
 Dataset yang digunakan berasal dari Kaggle - MovieLens(https://www.kaggle.com/datasets/grouplens/movielens-20m-dataset) yang terdiri dari beberapa file utama:
-- movie.csv: Metadata film (movieId, title, genres), Jumlah baris dan kolom: 9742 baris × 3 kolom, Kolom: `movieId`, `title`, `genres`, dan Missing value: Tidak ditemukan missing value (berdasarkan `genome_tags.isnull().sum()`) di notebook
-- genome_tags.csv: Kumpulan tag yang digunakan, Jumlah baris dan kolom: 1127 baris × 2 kolom, Kolom: `tagId`, `tag`, Missing value: Tidak ditemukan missing value (berdasarkan `genome_tags.isnull().sum()`)
-- genome_scores.csv: Skor relevansi (0–1) antara film dan tag, Jumlah baris dan kolom: 11709767 baris × 3 kolom, Kolom: `movieId`, `tagId`, `relevance`, Missing value: Tidak ditemukan missing value (berdasarkan `genome_scores.isnull().sum()`)
+- movie.csv: Metadata film (movieId, title, genres), Jumlah baris dan kolom: 27278 baris × 3 kolom, Kolom: `movieId`, `title`, `genres`, dan Missing value: Tidak ditemukan missing value (berdasarkan `genome_tags.isnull().sum()`) di notebook
+- genome_tags.csv: Kumpulan tag yang digunakan, Jumlah baris dan kolom: 1128 baris × 2 kolom, Kolom: `tagId`, `tag`, Missing value: Tidak ditemukan missing value (berdasarkan `genome_tags.isnull().sum()`)
+- genome_scores.csv: Skor relevansi (0–1) antara film dan tag, Jumlah baris dan kolom: 11709768 baris × 3 kolom, Kolom: `movieId`, `tagId`, `relevance`, Missing value: Tidak ditemukan missing value (berdasarkan `genome_scores.isnull().sum()`)
 
 Variabel penting:
-- movieId: ID unik untuk setiap film
-- title: Judul film
-- tag: Tag deskriptif
-- relevance: Nilai yang menunjukkan seberapa kuat hubungan antara tag dan film
+- movieId: ID unik untuk setiap film (digunakan sebagai penghubung antara file movies.csv, genome_scores.csv, dan ratings.csv)
+- title: Judul film beserta tahun rilis
+- genres : Daftar genre film dalam format string yang dipisahkan oleh karakter '|', misalnya 'Action|Adventure|Sci-Fi'. Jika tidak diketahui, genre bernilai '(no genres listed)'.
+- tag: Kata atau frasa deskriptif yang merepresentasikan aspek dari film, digunakan untuk menilai keterkaitan dengan suatu konten.
+- tagId: ID unik dari sebuah tag, digunakan untuk menghubungkan antara file genome_tags.csv dan genome_scores.csv.
+- relevance: Nilai numerik antara 0 sampai 1 yang menunjukkan seberapa relevan suatu tag dengan film tertentu (semakin tinggi nilainya, semakin relevan).
 
 
 ## Data Preparation
@@ -45,6 +47,7 @@ Pada tahap ini dilakukan beberapa proses persiapan data sebelum dimasukkan ke da
 - Menyusun 20 tag paling relevan untuk setiap film
 - Membuat satu representasi teks (gabungan tag) untuk setiap film
 - Melakukan vektorisasi teks menggunakan TfidfVectorizer dari scikit-learn
+- Membuat kolom genre_set untuk keperluan evaluasi
 
 ## Modeling
 Model rekomendasi dibuat berdasarkan cosine similarity antar film berdasarkan representasi tag-nya.
